@@ -1,8 +1,6 @@
 from typing import List
-import string
 import random
-import operator
-import copy
+
 
 def generate_grid() -> List[List[str]]:
     alphabet = [i for i in range(1072, 1098)] +[1169] + [i for i in range(1100, 1073)]
@@ -13,7 +11,6 @@ def generate_grid() -> List[List[str]]:
         if letter not in playground:
             playground.append(letter)
     return playground
-
 
 
 def get_words(file1, letters):
@@ -28,7 +25,6 @@ def get_words(file1, letters):
                 line[0] = word
                 line = ' '.join(line)
                 if word[0] in letters and len(word) <= 5 :
-                    # line = line[:line.index(' ')]
                     if '/adj' in line:
                         part = 'adjective'
                         line = [word, part]
@@ -42,7 +38,23 @@ def get_words(file1, letters):
                         part = 'adverb'
                         line = [word, part]
                     word_lst.append(line)
-        print(word_lst)
+        return word_lst
 
 
-get_words("base.txt", generate_grid())
+def check_user_words(user_words, language_part, letters, dict_of_words):
+    right_word = []
+    missed_word = []
+    for name in dict_of_words:
+        if name[1] != language_part:
+            dict_of_words.remove(name)
+    for i in user_words:
+        if i[0] in letters:
+            for name in dict_of_words:
+                if i == name[0]:
+                    right_word.append(i)
+    for name in dict_of_words:
+        if name[0] not in right_word:
+            missed_word.append(name[0])
+    print(right_word)
+    print(missed_word)
+    return right_word, missed_word
