@@ -29,7 +29,6 @@ def get_words(file1, letters):
             line = line + ' '
             line = line.strip().split()
             word = line[0]
-            word = word.encode('cp1251', 'ignore').decode( 'utf-8', 'ignore')
             if word != '':
                 line[0] = word
                 line = ' '.join(line)
@@ -67,5 +66,3 @@ def check_user_words(user_words, language_part, letters, dict_of_words):
         if name[0] not in right_word and name[1] == language_part:
             missed_word.append(name[0])
     return right_word, missed_word
-
-print(check_user_words(['бабин', 'битий', 'бичий', 'білий', 'бісів', 'богів', 'божий', 'босий', 'булий', 'булів', 'бурий', 'ласий', 'лисий', 'литий', 'лихий', 'лівий', 'любий', 'лютий', 'усний', 'утлий', 'щирий', 'щучий', 'щучин'], "adjective", ['ф', 'у', 'щ', 'б', 'л'], get_words("base2.lst", ['ф', 'у', 'щ', 'б', 'л'])))
